@@ -29,7 +29,8 @@
                         </div>
                         <div class="form-group">
                             <label for="username">用户名</label>
-                            <input type="text" onchange="checkUser()" id="username" name="username" class="form-control" placeholder="用户名"
+                            <input type="text" onchange="checkUser()" id="username" name="username" class="form-control"
+                                   placeholder="用户名"
                                    required
                                    autofocus>
                         </div>
@@ -104,10 +105,16 @@
             },
             dataType: "text",
             success: function (data) {
-                if(data=="valid"){
-                    $("#username").attr("class","form-control is-valid")
-                }else {
-                    $("#username").attr("class","form-control is-invalid")
+                if (data == "valid") {
+                    $("#username").attr("class", "form-control is-valid")
+                    $("#username").popover('disable')
+                } else if (data == "valid") {
+                    $("#username").attr("class", "form-control is-invalid")
+                    $('#username').popover({
+                        container: 'body',
+                        content: "用户名已存在"
+                    })
+                    $('#username').popover('show')
                 }
             }
         });
