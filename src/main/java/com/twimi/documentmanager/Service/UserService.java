@@ -14,6 +14,8 @@ public interface UserService {
 
     User getUserByUid(int uid);
 
+    User getUserByUsername(String username);
+
     List<User> getAllUsers();
 
     List<User> getUnVerifyUsers();
