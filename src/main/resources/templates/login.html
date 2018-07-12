@@ -27,6 +27,7 @@
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     <strong>提示信息:</strong><a th:text="${message}"></a>
                 </div>
+                <input th:if="${referrer!=null}" th:value="${referrer}" type="hidden" name="referrer">
                 <div class="form-group">
                     <label for="username">账号</label>
                     <input type="text" id="username" name="username" class="form-control" placeholder="用户名/邮箱" required

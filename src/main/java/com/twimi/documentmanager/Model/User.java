@@ -19,12 +19,13 @@ public class User {
 
     private int industryid;
     private int committeeid;
+    private int seminarid;
 
     public User() {
 
     }
 
-    public User(String username, String password, int role, String name, String sex, String birthday, String address, String contact, String referrer, int industryid, int committeeid) {
+    public User(String username, String password, int role, String name, String sex, String birthday, String address, String contact, String referrer, int industryid, int committeeid, int seminarid) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -36,5 +37,6 @@ public class User {
         this.referrer = referrer;
         this.industryid = industryid;
         this.committeeid = committeeid;
+        this.seminarid = seminarid;
     }
 }

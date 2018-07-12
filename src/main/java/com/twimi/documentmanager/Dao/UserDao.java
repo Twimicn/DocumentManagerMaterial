@@ -19,7 +19,7 @@ public interface UserDao {
     @Select("Select * From user Where username=#{username}")
     User getUserByUsername(@Param("username") String username);
 
-    @Insert("INSERT INTO user(username,password,role,name,sex,birthday,address,contact,referrer,industryid,committeeid) VALUES (#{username},#{password},#{role},#{name},#{sex},#{birthday},#{address},#{contact},#{referrer},#{industryid},#{committeeid})")
+    @Insert("INSERT INTO user(username,password,role,name,sex,birthday,address,contact,referrer,industryid,committeeid,seminarid) VALUES (#{username},#{password},#{role},#{name},#{sex},#{birthday},#{address},#{contact},#{referrer},#{industryid},#{committeeid},#{seminarid})")
     @Options(useGeneratedKeys = true, keyProperty = "uid")
     int insert(User user);
 

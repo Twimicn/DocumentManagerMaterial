@@ -72,19 +72,19 @@
                         <div class="form-group">
                             <label for="industryid">行业分会</label>
                             <select name="industryid" id="industryid" class="form-control" required>
-                                <option value="1" selected>行业1</option>
-                                <option value="2">行业2</option>
-                                <option value="3">行业3</option>
-
+                                <option th:each="industry:${industries}" th:value="${industry.industryid}" th:text="${industry.name}"></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="committeeid">专委会</label>
                             <select name="committeeid" id="committeeid" class="form-control" required>
-                                <option value="1" selected>专委会1</option>
-                                <option value="2">专委会2</option>
-                                <option value="3">专委会3</option>
-
+                                <option th:each="committee:${committees}" th:value="${committee.committeeid}" th:text="${committee.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="seminarid">研究会</label>
+                            <select name="seminarid" id="seminarid" class="form-control" required>
+                                <option th:each="seminar:${seminars}" th:value="${seminar.seminarid}" th:text="${seminar.name}"></option>
                             </select>
                         </div>
                         <input type="submit" class="btn btn-lg btn-success btn-block" value="注册">

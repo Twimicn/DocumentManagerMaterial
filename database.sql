@@ -47,3 +47,12 @@ CREATE TABLE `pcomment` (
   `timeline` int(11) NOT NULL,
   PRIMARY KEY (`cid`)
 );
+
+CREATE TABLE `recommendation`(
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
+  `status` int(2) NOT NULL DEFAULT '0',
+  `reason` text NOT NULL,
+  PRIMARY KEY (`id`)
+);

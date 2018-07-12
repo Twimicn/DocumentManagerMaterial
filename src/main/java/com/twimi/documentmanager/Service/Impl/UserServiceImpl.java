@@ -1,7 +1,7 @@
 package com.twimi.documentmanager.Service.Impl;
 
-import com.twimi.documentmanager.Dao.UserDao;
-import com.twimi.documentmanager.Model.User;
+import com.twimi.documentmanager.Dao.*;
+import com.twimi.documentmanager.Model.*;
 import com.twimi.documentmanager.Service.UserService;
 import com.twimi.documentmanager.Util.MultiResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,21 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    UserInfoDao userInfoDao;
+
+    @Autowired
+    RecommendationDao recommendationDao;
+
+    @Autowired
+    CommitteeDao committeeDao;
+
+    @Autowired
+    IndustryDao industryDao;
+
+    @Autowired
+    SeminarDao seminarDao;
 
     @Override
     public MultiResult<User> login(String username, String password) {
@@ -54,8 +69,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int recommend(int uid, int rid, String reason) {
+        Recommendation recommendation = recommendationDao.getRecommendationByUidAndRid(uid, rid);
+        if (recommendation != null) {
+            return -1;
+        } else {
+            recommendation = new Recommendation(uid, rid, reason);
+            int r = recommendationDao.insert(recommendation);
+            if (r < 0)
+                return 0;
+            else
+                return recommendation.getId();
+        }
+    }
+
+    @Override
+    public Recommendation getRecommendationById(int id) {
+        return recommendationDao.getRecommendationById(id);
+    }
+
+    @Override
+    public Recommendation getRecommendationByUid(int uid) {
+        return recommendationDao.getRecommendationByUid(uid);
+    }
+
+    @Override
+    public List<Recommendation> getRecommendations() {
+        return recommendationDao.getRecommendations();
+    }
+
+    @Override
     public void changeStatus(int uid, int status) {
-        userDao.changeStatus(uid,status);
+        userDao.changeStatus(uid, status);
+        recommendationDao.updateStatus(uid,status);
     }
 
     @Override
@@ -69,6 +115,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserInfo getUserInfoByUid(int uid) {
+        return userInfoDao.getUserInfoByUid(uid);
+    }
+
+    @Override
+    public void createOrSaveUserInfo(UserInfo userInfo) {
+        if (userInfo != null) {
+            UserInfo u = userInfoDao.getUserInfoByUid(userInfo.getUid());
+            if (u != null) {
+                userInfoDao.update(userInfo);
+            } else {
+                userInfoDao.insert(userInfo);
+            }
+        }
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
@@ -76,5 +139,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUnVerifyUsers() {
         return userDao.getUnVerifyUsers();
+    }
+
+    @Override
+    public List<Committee> getCommittees() {
+        return committeeDao.getAll();
+    }
+
+    @Override
+    public List<Industry> getIndustries() {
+        return industryDao.getAll();
+    }
+
+    @Override
+    public List<Seminar> getSeminars() {
+        return seminarDao.getAll();
     }
 }
